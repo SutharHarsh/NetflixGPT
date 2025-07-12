@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import checkDataValid from "../utils/validate";
+import Header from "./header";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -14,12 +15,17 @@ const Login = () => {
   const name = useRef(null);
 
   const onSubmit = () => {
-    const message = checkDataValid(email.current.value, password.current.value, name.current.value);
+    const message = checkDataValid(
+      email.current.value,
+      password.current.value,
+      name.current.value
+    );
     setErrorMessage(message);
   };
 
   return (
     <div>
+      <Header />
       <div>
         <img
           className="absolute"
@@ -37,7 +43,7 @@ const Login = () => {
         </h1>
         {!isSignIn && (
           <input
-          ref={name}
+            ref={name}
             className="bg-gray-700 p-3 my-4 w-full"
             type="text"
             placeholder="Enter Your Fullname"
