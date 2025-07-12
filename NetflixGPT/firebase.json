@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "site": "netflixgpt-28614-f75cb",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+
