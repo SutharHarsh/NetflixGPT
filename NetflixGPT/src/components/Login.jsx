@@ -7,15 +7,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
+import { PROFILE_IMAGE } from "../utils/constant";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const toggleSignIn = () => {
@@ -39,13 +38,13 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
-          // Signed up
+          // SIGNED UP
           const user = userCredential.user;
-          console.log(user);
 
-          updateProfile(auth.currentUser, {
+          // PROFILE UPDATE LOGIC
+          updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/143863260?v=4",
+            photoURL: PROFILE_IMAGE,
           })
             .then(() => {
               // Profile updated!
@@ -58,7 +57,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -71,7 +69,7 @@ const Login = () => {
           setErrorMessage(errorCode + "-" + errorMessage);
         });
     } else {
-      // sign in logic
+      // SIGN IN LOGIC
       signInWithEmailAndPassword(
         auth,
         email.current.value,
@@ -80,8 +78,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -133,7 +129,7 @@ const Login = () => {
         <p className="text-red-600 font-bold py-2">{errorMessage}</p>
         <button
           onClick={onSubmit}
-          className="w-full bg-red-700 p-2 my-4 rounded-lg"
+          className="w-full bg-red-700 hover:bg-red-800 cursor-pointer p-2 my-4 rounded-lg"
         >
           {isSignIn ? "Sign In" : "Sign Up"}
         </button>
