@@ -7,9 +7,9 @@ const VideoBackground = ({ movieId }) => {
   useFetchTrailerVideo(movieId);
 
   return (
-    <div className="w-screen">
+    <div>
       <iframe
-        className="w-screen h-screen"
+        className=" w-full h-screen overflow-hidden"
         src={
           "https://www.youtube.com/embed/" +
           movieInfo?.key +
