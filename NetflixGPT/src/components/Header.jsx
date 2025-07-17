@@ -6,6 +6,7 @@ import { addUser, removeUser } from "../store/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { LOGO } from "../utils/constant";
+import { toggleGptSearchView } from "../store/gptSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -42,15 +43,26 @@ const Header = () => {
         console.log("Error:" + error);
       });
   };
+
+  const handleGptSearch = () => {
+    dispatch(toggleGptSearchView());
+  };
+
   return (
     <div className="absolute w-full bg-gradient-to-b from-black z-10 flex justify-between items-center">
       <img className="w-44" src={LOGO} alt="Logo" />
       {user && (
         <div className="flex justify-between items-center gap-4">
+          <button
+            onClick={handleGptSearch}
+            className="bg-purple-700 hover:bg-purple-800 text-white px-4 p-2 rounded-md cursor-pointer"
+          >
+            GPT Search
+          </button>
           <h1 className="text-white font-bold text-2xl">{user?.displayName}</h1>
           <div className="p-2">
             <img
-              className="w-20 rounded-[50%]"
+              className="w-15 rounded-[50%]"
               src={user?.photoURL}
               alt="profile_image"
             />
